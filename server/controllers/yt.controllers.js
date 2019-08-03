@@ -203,34 +203,34 @@ class ytController {
       )
     }
   }
-  static async apiTestRoute(req, res, next) {
-    // try {
-    //   const userJwt = req.get("Authorization").slice("Bearer ".length)
-    //   const userObj = await User.decoded(userJwt)
-    //   console.log('userJWT', userJwt);
-    //   console.log('userObj', userObj);
-    //   console.log('user email', userObj.email);
-    //   var {
-    //     error
-    //   } = userObj
-    //   if (error) {
-    //     res.status(401).json({
-    //       error
-    //     })
-    //     return
-    //   }
-    //   let pageProcessInfo = {
-    //     videoResponse: 45,
-    //     updatedCommentCount: 2000,
-    //     channelId: 'chanel123',
-    //     message: 'Daily Limit Exceeded. The quota will be reset at midnight Pacific Time (PT).'
-    //   }
-    //   await sendEmail(userObj.email, pageProcessInfo)
-    // } catch (e) {
-    //   console.error('From route:', e)
-    // }
+  // static async apiTestRoute(req, res, next) {
+  //   // try {
+  //   //   const userJwt = req.get("Authorization").slice("Bearer ".length)
+  //   //   const userObj = await User.decoded(userJwt)
+  //   //   console.log('userJWT', userJwt);
+  //   //   console.log('userObj', userObj);
+  //   //   console.log('user email', userObj.email);
+  //   //   var {
+  //   //     error
+  //   //   } = userObj
+  //   //   if (error) {
+  //   //     res.status(401).json({
+  //   //       error
+  //   //     })
+  //   //     return
+  //   //   }
+  //   //   let pageProcessInfo = {
+  //   //     videoResponse: 45,
+  //   //     updatedCommentCount: 2000,
+  //   //     channelId: 'chanel123',
+  //   //     message: 'Daily Limit Exceeded. The quota will be reset at midnight Pacific Time (PT).'
+  //   //   }
+  //   //   await sendEmail(userObj.email, pageProcessInfo)
+  //   // } catch (e) {
+  //   //   console.error('From route:', e)
+  //   // }
 
-  }
+  // }
 }
 
 const getPlaylistItems = async (uploadId, next = null) => {
@@ -279,7 +279,7 @@ const extractVideos = async (channelId, uploadId) => {
       console.error(e)
       if (e.code === 403 && e.errors[0].reason === 'dailyLimitExceeded') {
         continueCommentExtraction = false;
-        globalMessage = e.errors[0].message
+        globalMessage = e.errors[0].message;
       }
     }
     // START A WHILE LOOP IF A NEXTPAGETOKEN EXISTS
@@ -359,7 +359,7 @@ const extractVideos = async (channelId, uploadId) => {
       console.error(e)
       if (e.code === 403 && e.errors[0].reason === 'dailyLimitExceeded') {
         continueCommentExtraction = false;
-        globalMessage = e.errors[0].message
+        globalMessage = e.errors[0].message;
       }
     }
     // START A WHILE LOOP IF A NEXTPAGETOKEN EXISTS
@@ -387,7 +387,7 @@ const extractVideos = async (channelId, uploadId) => {
         console.error(e)
         if (e.code === 403 && e.errors[0].reason === 'dailyLimitExceeded') {
           continueCommentExtraction = false;
-          globalMessage = e.errors[0].message
+          globalMessage = e.errors[0].message;
         }
       }
       next = nextResponse.nextPageToken ? nextResponse.nextPageToken : null;
@@ -445,7 +445,7 @@ const extractComments = async (video) => {
         console.error(e)
         if (e.code === 403 && e.errors[0].reason === 'dailyLimitExceeded') {
           continueCommentExtraction = false;
-          globalMessage = e.errors[0].message
+          globalMessage = e.errors[0].message;
         }
       }
     } while (next)
@@ -485,7 +485,7 @@ const extractComments = async (video) => {
           console.error(e)
           if (e.code === 403 && e.errors[0].reason === 'dailyLimitExceeded') {
             continueCommentExtraction = false;
-            globalMessage = e.errors[0].message
+            globalMessage = e.errors[0].message;
           }
         }
       } while (nextChild)
