@@ -1,0 +1,12 @@
+.login-comp {
+  background-color: #DADADA;
+}
+.login-comp.grid {
+  height: 100%;
+}
+.login-comp .image {
+  margin-top: -100px;
+}
+.login-comp .column {
+  max-width: 450px;
+}
