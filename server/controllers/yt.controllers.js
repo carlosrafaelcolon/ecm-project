@@ -25,9 +25,13 @@ class ytController {
     // Grab channel id
     const channelId = req.body.channelId
     let userObj
+    console.log(channelId)
+    console.log('auth', req.get("Authorization"))
+    
     try {
       const userJwt = req.get("Authorization").slice("Bearer ".length)
       userObj = await User.decoded(userJwt)
+      console.log('obj', userObj)
       var { error } = userObj
       if (error) {
         res.status(401).json({ error })
@@ -259,6 +263,7 @@ const extractVideos = async (channelId, uploadId) => {
   // Before Fetching videos check database for any existing data
   let videoCount = await YouTubeVideosDAO.videoCount(channelId)
   if (!videoCount) {
+    console.log('inside no vid count', videoCount)
     let playlistResponse
     try {
       playlistResponse = await getPlaylistItems(uploadId)
@@ -311,6 +316,7 @@ const extractVideos = async (channelId, uploadId) => {
       next = nextResponse.nextPageToken ? nextResponse.nextPageToken : null;
     }
   } else {
+    console.log('inside vid count', videoCount)
     const caseStudy = await SubjectDAO.getSubjectById(channelId)
     let playlistResponse
     try {
@@ -417,6 +423,7 @@ const extractComments = async (video) => {
     videoId: video.contentDetails.videoId
   })
   if (!commentCount) {
+    console.log('inside no comment count', commentCount)
     let parentCommentResponse
     let next = null
     do {
@@ -491,6 +498,7 @@ const extractComments = async (video) => {
       } while (nextChild)
     } while (await parentCursor.hasNext())
   } else {
+    console.log('inside commentcount', commentCount)
     let parentCommentResponse
     let next = null
     do {
@@ -575,6 +583,7 @@ const extractComments = async (video) => {
   } catch (e) {
     console.error(e)
   }
+  console.log('end of comment function')
 }
 const sendEmail = async (email, info) => {
   console.log('email:', email)

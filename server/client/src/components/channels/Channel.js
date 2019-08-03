@@ -10,7 +10,7 @@ class Channel extends React.Component {
   displayResponse() {
     if (this.props.message) {
       return (
-        <div className="ui bottom attached warning message">
+        <div className="ui warning message">
           <i className="exclamation icon" />
           {this.props.message}
         </div>
@@ -32,13 +32,13 @@ class Channel extends React.Component {
           <div className="header">
             When adding a channel to the database the:
           </div>
-          <ul class="medium list">
+          <ul className="list">
             <li>Selected channel will appear in the channels page.</li>
             <li>All videos are extracted from the channel</li>
-            <li>All comments from all those videos are extracted</li>
+            <li>All comments from all those videos are extracted (or at least until points run out)</li>
           </ul>
-          {this.displayResponse()}
         </div>
+        {this.displayResponse()}
         <ChannelList />
       </div>
     );
