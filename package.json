@@ -14,7 +14,7 @@
     "dev": "cross-env NODE_ENV=development concurrently \"npm run server\" \"npm run client\" ",
     "build:client": "npm run build --prefix server/client",
     "prod": "cross-env NODE_ENV=production node index.js",
-    "heroku-postbuild": "cross-env NPM_CONFIG_PRODUCTION=false npm install && npm run build --prefix server/client"
+    "heroku-postbuild": "cross-env NPM_CONFIG_PRODUCTION=false npm install && npm install --prefix server/client && npm run build --prefix server/client"
   },
   "author": "",
   "license": "ISC",
