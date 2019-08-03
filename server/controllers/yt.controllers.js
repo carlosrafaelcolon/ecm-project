@@ -42,70 +42,70 @@ class ytController {
       console.error(e)
     }
     
-    // // First retrieve most recent channel data from YouTube
-    // let channelResponse
-    // // First retrieve most recent channel data from YouTube
+    // First retrieve most recent channel data from YouTube
+    let channelResponse
+    // First retrieve most recent channel data from YouTube
     
-    // try {
-    //   channelResponse = await youtube.channels.list({
-    //     part: 'contentDetails, snippet',
-    //     id: channelId
-    //   })
-    // } catch (e) {
-    //   console.error(`Error retrieving channel: ${e}`)
-    // }
-    // // Extract id from channel's upload's playlist to getAllVideos
-    // const uploadId = channelResponse.data.items[0].contentDetails.relatedPlaylists.uploads
-    // // Update subject collection with most recent channel data
-    // // If subject does not exist, create a new one
-    // try {
-    //   const subjectDoc = {
-    //     category: 'YouTube',
-    //     _id: channelId,
-    //     name: channelResponse.data.items[0].snippet.title,
-    //     upload_id: uploadId,
-    //     creation_date: new Date(channelResponse.data.items[0].snippet.publishedAt),
-    //     image_path: channelResponse.data.items[0].snippet.thumbnails.medium.url,
-    //     last_update: new Date()
-    //   }
+    try {
+      channelResponse = await youtube.channels.list({
+        part: 'contentDetails, snippet',
+        id: channelId
+      })
+    } catch (e) {
+      console.error(`Error retrieving channel: ${e}`)
+    }
+    // Extract id from channel's upload's playlist to getAllVideos
+    const uploadId = channelResponse.data.items[0].contentDetails.relatedPlaylists.uploads
+    // Update subject collection with most recent channel data
+    // If subject does not exist, create a new one
+    try {
+      const subjectDoc = {
+        category: 'YouTube',
+        _id: channelId,
+        name: channelResponse.data.items[0].snippet.title,
+        upload_id: uploadId,
+        creation_date: new Date(channelResponse.data.items[0].snippet.publishedAt),
+        image_path: channelResponse.data.items[0].snippet.thumbnails.medium.url,
+        last_update: new Date()
+      }
 
-    //   await SubjectDAO.updateSubject(subjectDoc)
-    // } catch (e) {
-    //   console.error(e)
-    // }
-    // // Extract Videos
-    // const videoResponse = await extractVideos(channelId, uploadId)
-    // let cursor = await YouTubeVideosDAO.findVideoByChannelCursor(channelId)
-    // do {
-    //   const video = await cursor.next()
-    //   await extractComments(video)
-    // } while (await cursor.hasNext() && continueCommentExtraction)
-    // // Update Subjects Stats
-    // const updatedCommentCount = await YouTubeCommentsDAO.commentCount({
-    //   channelId
-    // })
-    // await SubjectDAO.updateSubject({
-    //   _id: channelId,
-    //   commentCount: updatedCommentCount
-    // })
-    // let pageProcessInfo = {
-    //   videoResponse,
-    //   updatedCommentCount
-    // }
-    // if (!continueCommentExtraction) {
-    //   pageProcessInfo = {
-    //     ...pageProcessInfo,
-    //     channelId,
-    //     errorMessage: globalMessage
-    //   }
-    // }
-    // console.log('page info:', pageProcessInfo)
-    // // Grab sender info via Access Token and then sendout email
-    // try {
-    //   await sendEmail(userObj.email, pageProcessInfo)
-    // } catch (e) {
-    //   console.error(e)
-    // }
+      await SubjectDAO.updateSubject(subjectDoc)
+    } catch (e) {
+      console.error(e)
+    }
+    // Extract Videos
+    const videoResponse = await extractVideos(channelId, uploadId)
+    let cursor = await YouTubeVideosDAO.findVideoByChannelCursor(channelId)
+    do {
+      const video = await cursor.next()
+      await extractComments(video)
+    } while (await cursor.hasNext() && continueCommentExtraction)
+    // Update Subjects Stats
+    const updatedCommentCount = await YouTubeCommentsDAO.commentCount({
+      channelId
+    })
+    await SubjectDAO.updateSubject({
+      _id: channelId,
+      commentCount: updatedCommentCount
+    })
+    let pageProcessInfo = {
+      videoResponse,
+      updatedCommentCount
+    }
+    if (!continueCommentExtraction) {
+      pageProcessInfo = {
+        ...pageProcessInfo,
+        channelId,
+        errorMessage: globalMessage
+      }
+    }
+    console.log('page info:', pageProcessInfo)
+    // Grab sender info via Access Token and then sendout email
+    try {
+      await sendEmail(userObj.email, pageProcessInfo)
+    } catch (e) {
+      console.error(e)
+    }
   }
   static async apiGetComments(req, res, next) {
     // const channelId = req.query.channelId;
