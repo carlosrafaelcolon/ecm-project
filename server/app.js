@@ -5,13 +5,13 @@ const path = require('path')
 const app = express()
 const ytRoutes = require('./routes/yt.routes')
 const userRoutes = require('./routes/users.routes')
-
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({
   extended: true
 }))
 app.use(compression())
-app.use(cors())
+
 // Routes
 app.use('/api/v1/youtube', ytRoutes)
 app.use("/api/v1/user", userRoutes)
