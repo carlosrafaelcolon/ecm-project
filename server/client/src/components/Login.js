@@ -49,7 +49,7 @@ class LoginForm extends React.Component {
   }
   renderMessage() {
     const { errorMessage } = this.props;
-    if(errorMessage ) {
+    if(errorMessage && typeof errorMessage === 'string') {
       return(
         <div className="ui message">
             {errorMessage}

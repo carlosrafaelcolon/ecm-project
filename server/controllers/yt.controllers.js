@@ -29,6 +29,7 @@ class ytController {
     try {
       const userJwt = req.get("Authorization").slice("Bearer ".length)
       userObj = await User.decoded(userJwt)
+      console.log('userObj', userObj)
       var { error } = userObj
       if (error) {
         res.status(401).json({ error })

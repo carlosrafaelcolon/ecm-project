@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const compression = require('compression') // compresses requests
 const path = require('path')
 const app = express()
@@ -10,12 +11,7 @@ app.use(express.urlencoded({
   extended: true
 }))
 app.use(compression())
-app.use((req, res,next)=>{
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  next();
-  });
+app.use(cors())
 // Routes
 app.use('/api/v1/youtube', ytRoutes)
 app.use("/api/v1/user", userRoutes)

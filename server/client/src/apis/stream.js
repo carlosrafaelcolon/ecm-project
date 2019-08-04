@@ -10,8 +10,7 @@ export const stream_search = axios.create({
     type: 'video',
     maxResults: 25,
     key: KEY
-  },
-  'crossDomain': true
+  }
 })
 
 export const stream_info = axios.create({
@@ -19,6 +18,5 @@ export const stream_info = axios.create({
   params: {
     part: 'snippet, liveStreamingDetails',
     key: KEY
-  },
-  'crossDomain': true
+  }
 })
