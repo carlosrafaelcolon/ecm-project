@@ -1,6 +1,5 @@
 import axios from 'axios'
-
-const KEY = 'AIzaSyDBB3pbEsFLjLjNPM4UwOESXTDjF_L8gJY'
+const KEY = 'AIzaSyDuBfYuUt68xpmQanoky3z6tM_Lcxodabo'
 // npm install axios@0.18.1
 
 export default axios.create({
