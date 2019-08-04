@@ -1,11 +1,9 @@
 import axios from 'axios';
-
+axios.defaults.withCredentials = true;
 export const user_route = axios.create({
   baseURL: '/api/v1/user',
   headers: {
-    'Accept': '*',
-      'Content-Type': '*',
-    'Authorization': 'Bearer ' + localStorage.getItem('token')
+    'Content-Type': 'application/json'
   },
   'crossDomain': true
 })
@@ -13,9 +11,7 @@ export const user_route = axios.create({
 export const yt_route = axios.create({
   baseURL: '/api/v1/youtube',
   headers: {
-    'Accept': '*',
-      'Content-Type': '*',
-    'Authorization': 'Bearer ' + localStorage.getItem('token')
+    'Content-Type': 'application/json'
   },
   'crossDomain': true
 })

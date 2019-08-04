@@ -10,6 +10,10 @@ import {
 export const postChannelId = channelId => async dispatch => {
   const response = await yt_route.post('/channel', {
     channelId
+  }, {
+    headers: {
+      Authorization: 'Bearer ' + localStorage.getItem('token')
+    }
   });
   dispatch({
     type: POST_CHANNELID,

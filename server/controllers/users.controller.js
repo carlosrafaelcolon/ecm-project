@@ -122,11 +122,14 @@ class UserController {
     try {
       const userJwt = req.get("Authorization").slice("Bearer ".length)
       const userObj = await User.decoded(userJwt)
+      console.log('jwt', userJwt)
+      console.log('userObj', userObj)
       var { error } = userObj
       if (error) {
         res.status(401).json({ error })
         return
       }
+      res.json(userObj)
       const logoutResult = await UsersDAO.logoutUser(userObj.email)
       var { error } = logoutResult
       if (error) {
