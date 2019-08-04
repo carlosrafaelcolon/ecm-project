@@ -27,7 +27,7 @@ class Header extends React.Component {
               Search
             </Link>
             <Link to="/channels" className="item">
-              Channels
+              Database
             </Link>
             <div className="item">
               <button className="ui medium  button" disabled>

@@ -25,13 +25,10 @@ class ytController {
     // Grab channel id
     const channelId = req.body.channelId
     let userObj
-    console.log(channelId)
-    console.log('auth', req.get("Authorization"))
     
     try {
       const userJwt = req.get("Authorization").slice("Bearer ".length)
       userObj = await User.decoded(userJwt)
-      console.log('obj', userObj)
       var { error } = userObj
       if (error) {
         res.status(401).json({ error })
@@ -99,7 +96,7 @@ class ytController {
         errorMessage: globalMessage
       }
     }
-    console.log('page info:', pageProcessInfo)
+
     // Grab sender info via Access Token and then sendout email
     try {
       await sendEmail(userObj.email, pageProcessInfo)
@@ -111,9 +108,7 @@ class ytController {
     // const channelId = req.query.channelId;
     let queryParams = {}
     queryParams.filters = req.body.filters || null;
-    console.log('req.body.page', req.body.page)
     queryParams.page = req.body.page || 0;
-    console.log('queryParams.page', queryParams.page)
     try {
       const response = await YouTubeCommentsDAO.findComments(queryParams)
       // console.log('comment-response', response[0])
@@ -207,34 +202,6 @@ class ytController {
       )
     }
   }
-  // static async apiTestRoute(req, res, next) {
-  //   // try {
-  //   //   const userJwt = req.get("Authorization").slice("Bearer ".length)
-  //   //   const userObj = await User.decoded(userJwt)
-  //   //   console.log('userJWT', userJwt);
-  //   //   console.log('userObj', userObj);
-  //   //   console.log('user email', userObj.email);
-  //   //   var {
-  //   //     error
-  //   //   } = userObj
-  //   //   if (error) {
-  //   //     res.status(401).json({
-  //   //       error
-  //   //     })
-  //   //     return
-  //   //   }
-  //   //   let pageProcessInfo = {
-  //   //     videoResponse: 45,
-  //   //     updatedCommentCount: 2000,
-  //   //     channelId: 'chanel123',
-  //   //     message: 'Daily Limit Exceeded. The quota will be reset at midnight Pacific Time (PT).'
-  //   //   }
-  //   //   await sendEmail(userObj.email, pageProcessInfo)
-  //   // } catch (e) {
-  //   //   console.error('From route:', e)
-  //   // }
-
-  // }
 }
 
 const getPlaylistItems = async (uploadId, next = null) => {
@@ -263,7 +230,6 @@ const extractVideos = async (channelId, uploadId) => {
   // Before Fetching videos check database for any existing data
   let videoCount = await YouTubeVideosDAO.videoCount(channelId)
   if (!videoCount) {
-    console.log('inside no vid count', videoCount)
     let playlistResponse
     try {
       playlistResponse = await getPlaylistItems(uploadId)
@@ -316,7 +282,6 @@ const extractVideos = async (channelId, uploadId) => {
       next = nextResponse.nextPageToken ? nextResponse.nextPageToken : null;
     }
   } else {
-    console.log('inside vid count', videoCount)
     const caseStudy = await SubjectDAO.getSubjectById(channelId)
     let playlistResponse
     try {
@@ -423,7 +388,7 @@ const extractComments = async (video) => {
     videoId: video.contentDetails.videoId
   })
   if (!commentCount) {
-    console.log('inside no comment count', commentCount)
+
     let parentCommentResponse
     let next = null
     do {
@@ -498,7 +463,6 @@ const extractComments = async (video) => {
       } while (nextChild)
     } while (await parentCursor.hasNext())
   } else {
-    console.log('inside commentcount', commentCount)
     let parentCommentResponse
     let next = null
     do {
@@ -583,11 +547,8 @@ const extractComments = async (video) => {
   } catch (e) {
     console.error(e)
   }
-  console.log('end of comment function')
 }
 const sendEmail = async (email, info) => {
-  console.log('email:', email)
-  console.log('info:', info)
   try {
     sgMail.setApiKey(keys.sendGridKey);
     const msg = {

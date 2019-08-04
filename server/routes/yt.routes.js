@@ -3,7 +3,6 @@ const ytController = require('../controllers/yt.controllers')
 const { authCheck } = require('../middlewares/authentication')
 const router = new Router()
 
-// router.route('/yt_test').get(ytController.apiTestRoute)
 router.route('/channel').post(ytController.apiProcessChannelSelection)
 router.route('/comments').post(ytController.apiGetComments)
 router.route('/top_users').get(ytController.apiGetActiveUsers)

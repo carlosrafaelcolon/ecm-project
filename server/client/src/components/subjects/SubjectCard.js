@@ -54,6 +54,7 @@ class subjectCard extends React.Component {
                 Videos: <strong>{this.props.subject.videoCount}</strong>
               </div>
             </div>
+            <button className="ui button" disabled={true}>Update Channel</button>
           </div>
           <Link
             className="ui bottom attached red button"

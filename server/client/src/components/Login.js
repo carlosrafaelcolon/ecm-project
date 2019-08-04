@@ -60,7 +60,7 @@ class LoginForm extends React.Component {
       if(errorMessage.message) {
         return(
           <div className="ui message">
-              {errorMessage}
+              {errorMessage.message}
             </div>
         )
       }
