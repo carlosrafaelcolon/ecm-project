@@ -6,10 +6,11 @@ const app = express()
 const ytRoutes = require('./routes/yt.routes')
 const userRoutes = require('./routes/users.routes')
 app.use(cors())
-app.use(express.json())
 app.use(express.urlencoded({
   extended: true
 }))
+app.use(express.json())
+
 app.use(compression())
 
 // Routes
