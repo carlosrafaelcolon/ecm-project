@@ -19,7 +19,7 @@ app.use("/api/v1/user", userRoutes)
 
 /*
  |--------------------------------------
- | IF IN PRODUCTION SERVE ANGULAR CLIENT.
+ | IF IN PRODUCTION SERVE REACT CLIENT.
  |--------------------------------------
  */
 
